@@ -1,0 +1,33 @@
+# Host ports can be changed in .env (POSTGRES_PORT, JAEGER_UI_PORT, JAEGER_OTLP_PORT)
+# if something else on your machine already uses the defaults.
+
+services:
+  postgres:
+    # ParadeDB is Postgres 17 with pg_search (BM25) and pgvector preinstalled. pg_search is
+    # AGPL-3.0 and runs here as a separate service; see "Running on AWS" in the README for
+    # managed Postgres, where only pgvector and plain full-text search are available.
+    image: paradedb/paradedb:0.26.5-pg17
+    environment:
+      POSTGRES_DB: rag
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      # Check over TCP: during first-start init, Postgres only listens on the Unix socket
+      # and restarts afterwards, so a socket check reports healthy too early.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U rag -d rag"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    ports:
+      - "${JAEGER_UI_PORT:-16686}:16686" # UI
+      - "${JAEGER_OTLP_PORT:-4317}:4317" # OTLP gRPC
+
+volumes:
+  postgres-data:

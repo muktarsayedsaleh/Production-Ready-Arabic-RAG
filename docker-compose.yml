@@ -1,6 +1,17 @@
 # Host ports can be changed in .env (POSTGRES_PORT, JAEGER_UI_PORT, JAEGER_OTLP_PORT)
 # if something else on your machine already uses the defaults.
 
+x-app: &app
+  build: .
+  image: production-ready-arabic-rag
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    # Inside the compose network, services are reached by name.
+    DATABASE_URL: postgresql://rag:rag@postgres:5432/rag
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
+
 services:
   postgres:
     # ParadeDB is Postgres 17 with pg_search (BM25) and pgvector preinstalled. pg_search is
@@ -28,6 +39,14 @@ services:
     ports:
       - "${JAEGER_UI_PORT:-16686}:16686" # UI
       - "${JAEGER_OTLP_PORT:-4317}:4317" # OTLP gRPC
+
+  migrate:
+    <<: *app
+    command: ["alembic", "upgrade", "head"]
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres-data:

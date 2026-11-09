@@ -23,6 +23,14 @@ class Settings(BaseSettings):
     # Only Claude is implemented so far; OpenAI and OpenAI-compatible endpoints come later.
     llm_provider: LLMProvider = "claude"
     llm_model: str = "claude-opus-5-5"
+    # Reasoning effort. Set explicitly: Claude Opus 5.5 defaults to "medium", others "high".
+    llm_effort: Literal["low", "medium", "high", "xhigh", "max"] = "medium"
+    # Prompt-cache lifetime. "1h" costs 2x to write instead of 1.25x; it only pays off
+    # when requests sharing a prefix are 5 to 60 minutes apart.
+    llm_cache_ttl: Literal["5m", "1h"] = "5m"
+    # Re-run requests declined by a safety classifier on Anthropic's recommended fallback
+    # model (server-side, Claude API only).
+    llm_refusal_fallback: bool = True
     # Optional here because the Anthropic SDK also reads ANTHROPIC_API_KEY on its own.
     anthropic_api_key: SecretStr | None = None
 

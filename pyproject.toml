@@ -1,0 +1,52 @@
+[project]
+name = "production-ready-arabic-rag"
+version = "0.1.0"
+description = "Production-ready RAG for Arabic and bilingual documents, LLM-agnostic. Hybrid search, reranking, citations, and an evaluation suite built in."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Muktar Sayed Saleh" }]
+requires-python = ">=3.12"
+dependencies = [
+    # HTTP API and the server that runs it.
+    "fastapi",
+    "uvicorn[standard]",
+    # Typed settings loaded from environment variables and .env.
+    "pydantic-settings",
+    # Claude, the default LLM provider.
+    "anthropic",
+    # Async Postgres driver and connection pool (same driver as the companion repo).
+    "psycopg[binary,pool]",
+    # Schema migrations, applied by the migrate service.
+    "alembic",
+    # Traces per pipeline stage, exported over OTLP.
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "mypy",
+    # Used by FastAPI's TestClient.
+    "httpx",
+    # Property-based tests for the Arabic normalizer (idempotence, Latin text untouched).
+    "hypothesis",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true

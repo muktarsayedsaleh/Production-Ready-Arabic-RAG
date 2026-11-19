@@ -14,6 +14,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import Literal
 
+from core.errors import TransientError
+
 Role = Literal["user", "assistant"]
 
 # Why the model stopped. "refusal" means a safety classifier declined the request (after
@@ -70,7 +72,7 @@ class LLMResponse:
     unpriced_models: tuple[str, ...] = ()
 
 
-class TransientLLMError(Exception):
+class TransientLLMError(TransientError):
     """A failure worth retrying later: rate limits, overload, timeouts, connection errors."""
 
 

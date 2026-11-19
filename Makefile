@@ -23,4 +23,4 @@ test:
 lint:
 	uv run ruff check .
 	uv run ruff format --check .
-	uv run mypy core tests migrations
+	uv run mypy core evals tests migrations

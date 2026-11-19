@@ -54,7 +54,7 @@ jobs:
           uv run ruff format --check .
 
       - name: Mypy
-        run: uv run mypy core tests migrations
+        run: uv run mypy core evals tests migrations
 
       - name: Tests
         run: uv run pytest

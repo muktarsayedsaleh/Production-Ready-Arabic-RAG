@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        # Same image as docker compose, so the pg_search migration path is tested too.
+        image: paradedb/paradedb:0.26.5-pg17
+        env:
+          POSTGRES_DB: rag
+          POSTGRES_USER: rag
+          POSTGRES_PASSWORD: rag
+        ports:
+          - 5432:5432
+        # Check over TCP: a Unix-socket check reports healthy during first-start init.
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U rag -d rag"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      # Enables the Postgres integration tests (migrations).
+      TEST_DATABASE_URL: postgresql://rag:rag@localhost:5432/rag
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        # --locked fails the build if uv.lock is out of date with pyproject.toml.
+        run: uv sync --locked --python 3.12
+
+      - name: Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Mypy
+        run: uv run mypy core tests migrations
+
+      - name: Tests
+        run: uv run pytest

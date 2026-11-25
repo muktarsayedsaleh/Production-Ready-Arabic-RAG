@@ -151,6 +151,19 @@ def load_dataset(corpus_dir: Path, cases_dir: Path) -> Dataset:
     return Dataset(documents=documents, cases=cases)
 
 
+def load_corpus(corpus_dir: Path, *, check_files: bool = True) -> dict[str, Document]:
+    """Load and check the documents manifest alone, without any cases.
+
+    With `check_files=False` the document files may be missing, for tools that create them.
+    """
+    problems: list[str] = []
+    documents = _load_documents(corpus_dir, problems)
+    problems += _check_documents(documents, corpus_dir, check_files=check_files)
+    if problems:
+        raise DatasetError(problems)
+    return documents
+
+
 def _read_yaml(path: Path, key: str, problems: list[str]) -> list[Any]:
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -206,14 +219,16 @@ def _load_cases(cases_dir: Path, problems: list[str]) -> list[Case]:
     return cases
 
 
-def _check_documents(documents: dict[str, Document], corpus_dir: Path) -> list[str]:
+def _check_documents(
+    documents: dict[str, Document], corpus_dir: Path, *, check_files: bool = True
+) -> list[str]:
     problems = []
     root = corpus_dir.resolve()
     for doc in documents.values():
         file = (corpus_dir / doc.path).resolve()
         if not file.is_relative_to(root):
             problems.append(f"document {doc.id}: path {doc.path!r} is outside the corpus")
-        elif not file.is_file():
+        elif check_files and not file.is_file():
             problems.append(f"document {doc.id}: file {doc.path!r} not found")
         if doc.superseded_by is not None:
             newer = documents.get(doc.superseded_by)

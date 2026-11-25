@@ -1,0 +1,231 @@
+# Every document the eval indexes. Format: evals/dataset.py.
+#
+# Wikipedia documents are pinned to a revision; `uv run python -m evals.wikipedia` fetches
+# them again from these permalinks. version_date is the revision date (UTC).
+
+documents:
+  - id: wiki-ar-derivation
+    title: اشتقاق (لسانيات)
+    language: ar
+    path: wikipedia/wiki-ar-derivation.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77992237
+    revision: "77992237"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-23
+
+  - id: wiki-ar-morphology
+    title: علم الصرف
+    language: ar
+    path: wikipedia/wiki-ar-morphology.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=75253087
+    revision: "75253087"
+    license: CC-BY-SA-4.0
+    version_date: 2026-06-09
+
+  - id: wiki-ar-diacritics
+    title: شكلة
+    language: ar
+    path: wikipedia/wiki-ar-diacritics.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=74627550
+    revision: "74627550"
+    license: CC-BY-SA-4.0
+    version_date: 2026-05-18
+
+  - id: wiki-ar-al-khwarizmi
+    title: محمد بن موسى الخوارزمي
+    language: ar
+    path: wikipedia/wiki-ar-al-khwarizmi.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77739652
+    revision: "77739652"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-21
+
+  - id: wiki-ar-avicenna
+    title: ابن سينا
+    language: ar
+    path: wikipedia/wiki-ar-avicenna.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77966923
+    revision: "77966923"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-23
+
+  - id: wiki-ar-riyadh
+    title: الرياض
+    language: ar
+    path: wikipedia/wiki-ar-riyadh.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=78062326
+    revision: "78062326"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-24
+
+  - id: wiki-ar-riyadh-metro
+    title: قطار الرياض
+    language: ar
+    path: wikipedia/wiki-ar-riyadh-metro.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77715301
+    revision: "77715301"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-21
+
+  - id: wiki-ar-vision-2030
+    title: رؤية السعودية 2030
+    language: ar
+    path: wikipedia/wiki-ar-vision-2030.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77565053
+    revision: "77565053"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-15
+
+  - id: wiki-ar-date-palm
+    title: نخلة التمر
+    language: ar
+    path: wikipedia/wiki-ar-date-palm.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=76649860
+    revision: "76649860"
+    license: CC-BY-SA-4.0
+    version_date: 2026-09-20
+
+  - id: wiki-ar-arabic-coffee
+    title: قهوة عربية
+    language: ar
+    path: wikipedia/wiki-ar-arabic-coffee.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77687533
+    revision: "77687533"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-20
+
+  - id: wiki-ar-petra
+    title: البتراء
+    language: ar
+    path: wikipedia/wiki-ar-petra.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=78027883
+    revision: "78027883"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-24
+
+  - id: wiki-ar-python
+    title: بايثون (لغة برمجة)
+    language: ar
+    path: wikipedia/wiki-ar-python.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77723661
+    revision: "77723661"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-21
+
+  - id: wiki-ar-unicode
+    title: الترميز الموحد
+    language: ar
+    path: wikipedia/wiki-ar-unicode.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=78039561
+    revision: "78039561"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-24
+
+  - id: wiki-ar-world-cup-2034
+    title: كأس العالم 2034
+    language: ar
+    path: wikipedia/wiki-ar-world-cup-2034.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=77881370
+    revision: "77881370"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-22
+
+  - id: wiki-ar-world-cup-2034-2024-11
+    title: كأس العالم 2034
+    language: ar
+    path: wikipedia/wiki-ar-world-cup-2034-2024-11.md
+    source_url: https://ar.wikipedia.org/w/index.php?oldid=68607141
+    revision: "68607141"
+    license: CC-BY-SA-4.0
+    version_date: 2024-11-18
+    superseded_by: wiki-ar-world-cup-2034
+
+  - id: wiki-en-arabic-alphabet
+    title: Arabic alphabet
+    language: en
+    path: wikipedia/wiki-en-arabic-alphabet.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1386701763
+    revision: "1386701763"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-20
+
+  - id: wiki-en-arabic-diacritics
+    title: Arabic diacritics
+    language: en
+    path: wikipedia/wiki-en-arabic-diacritics.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1384550564
+    revision: "1384550564"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-08
+
+  - id: wiki-en-arabic-script-in-unicode
+    title: Arabic script in Unicode
+    language: en
+    path: wikipedia/wiki-en-arabic-script-in-unicode.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1383915092
+    revision: "1383915092"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-05
+
+  - id: wiki-en-arabizi
+    title: Arabizi
+    language: en
+    path: wikipedia/wiki-en-arabizi.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1383530888
+    revision: "1383530888"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-03
+
+  - id: wiki-en-semitic-root
+    title: Semitic root
+    language: en
+    path: wikipedia/wiki-en-semitic-root.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1386803679
+    revision: "1386803679"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-20
+
+  - id: wiki-en-al-khwarizmi
+    title: Al-Khwarizmi
+    language: en
+    path: wikipedia/wiki-en-al-khwarizmi.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1385606532
+    revision: "1385606532"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-14
+
+  - id: wiki-en-house-of-wisdom
+    title: House of Wisdom
+    language: en
+    path: wikipedia/wiki-en-house-of-wisdom.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1387526001
+    revision: "1387526001"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-24
+
+  - id: wiki-en-riyadh-metro
+    title: Riyadh Metro
+    language: en
+    path: wikipedia/wiki-en-riyadh-metro.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1387463506
+    revision: "1387463506"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-24
+
+  - id: wiki-en-date-palm
+    title: Date palm
+    language: en
+    path: wikipedia/wiki-en-date-palm.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1385827415
+    revision: "1385827415"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-15
+
+  - id: wiki-en-2034-world-cup
+    title: 2034 FIFA World Cup
+    language: en
+    path: wikipedia/wiki-en-2034-world-cup.md
+    source_url: https://en.wikipedia.org/w/index.php?oldid=1386293111
+    revision: "1386293111"
+    license: CC-BY-SA-4.0
+    version_date: 2026-11-17

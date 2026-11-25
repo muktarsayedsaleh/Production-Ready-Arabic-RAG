@@ -12,6 +12,7 @@ from evals.dataset import (
     Expected,
     Language,
     Tag,
+    load_corpus,
     load_dataset,
 )
 
@@ -359,3 +360,23 @@ def test_stale_doc_case_needs_a_superseding_source(tmp_path: Path) -> None:
 )
 def test_may_read(caller: Caller, acl: Acl | None, allowed: bool) -> None:
     assert caller.may_read(acl) is allowed
+
+
+def test_load_corpus_reads_the_manifest_without_cases(tmp_path: Path) -> None:
+    corpus, _ = write_dataset(tmp_path, [PUBLIC_DOC], [])
+    assert list(load_corpus(corpus)) == ["wiki-ar-riyadh"]
+
+
+def test_load_corpus_can_skip_the_file_check(tmp_path: Path) -> None:
+    corpus, _ = write_dataset(tmp_path, [PUBLIC_DOC], [], create_files=False)
+    with pytest.raises(DatasetError, match="not found"):
+        load_corpus(corpus)
+    assert list(load_corpus(corpus, check_files=False)) == ["wiki-ar-riyadh"]
+
+
+def test_load_corpus_still_rejects_paths_outside_the_corpus(tmp_path: Path) -> None:
+    corpus, _ = write_dataset(
+        tmp_path, [{**PUBLIC_DOC, "path": "../escape.md"}], [], create_files=False
+    )
+    with pytest.raises(DatasetError, match="outside the corpus"):
+        load_corpus(corpus, check_files=False)

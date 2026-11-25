@@ -1,0 +1,250 @@
+# Golden cases over the synthetic internal documents. Format: evals/dataset.py.
+#
+# Callers:
+#   u-furat    employee (group employees), owns ticket TKT-5521
+#   u-fatima   customer, owns ORDER-123456
+#   u-omar     customer, owns ORDER-123465
+#   finance    an employee in the finance group (no user id)
+#   it-support an employee in the it-support group (no user id)
+#   anonymous  no user, no groups: sees only Wikipedia
+
+cases:
+  # Policies, asked by an employee.
+
+  - id: ar-leave-carry-over
+    # Morphology. Source: "ترحيل". Question: "أُرحِّل".
+    question: كم يومًا من رصيد إجازتي السنوية أستطيع أن أُرحِّل إلى السنة القادمة؟
+    language: ar
+    reference_answer: >-
+      عشرة أيام على الأكثر، وما زاد عليها يسقط في 31 مارس من السنة التالية ما لم يكن سببه
+      رفضًا مكتوبًا من الشركة.
+    source_doc_ids: [internal-policy-leave]
+    tags: [morphology]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-travel-daily-allowance
+    # Stale: version 1 of the travel policy says 300 riyals.
+    # Morphology. Source: "المسافر". Question: "سفر".
+    question: كم يُصرف للموظف عن كل يوم سفر في مهمة عمل داخل المملكة؟
+    language: ar
+    reference_answer: بدل يومي قدره 450 ريالًا عن كل ليلة في المهمة، يغطي الوجبات والتنقلات اليومية.
+    source_doc_ids: [internal-policy-travel-2026]
+    tags: [stale-doc, morphology]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-travel-policy-abroad-by-code
+    # Stale and exact-id: both versions of HR-POL-11 carry the code; version 1 says 500.
+    question: ما البدل اليومي للسفر خارج المملكة حسب السياسة HR-POL-11؟
+    language: ar
+    reference_answer: 650 ريالًا عن كل ليلة، بحسب الإصدار 2 الساري منذ 1 يوليو 2026.
+    source_doc_ids: [internal-policy-travel-2026]
+    tags: [stale-doc, exact-id]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-remote-lost-laptop
+    # Morphology. Source: "يُبلَّغ". Question: "أُبلِّغ".
+    # Paraphrase. Source: "فقدان الجهاز". Question: "ضاع اللابتوب".
+    question: لو ضاع لابتوب الشركة مني، خلال كم من الوقت لازم أُبلِّغ وعلى أي رقم؟
+    language: ar
+    reference_answer: خلال ساعتين، بإبلاغ الـ Service Desk على الرقم الداخلي 4357.
+    source_doc_ids: [internal-policy-remote-work]
+    tags: [morphology, paraphrase]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-remote-three-days
+    question: هل يمكنني الاشتغال من البيت ثلاثة أيام في الأسبوع؟
+    language: ar
+    reference_answer: >-
+      لا، الحد الأقصى يومان في الأسبوع، بعد إتمام فترة التجربة وبموافقة المدير المباشر.
+    source_doc_ids: [internal-policy-remote-work]
+    tags: [paraphrase]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: mixed-on-call-allowance
+    question: كم الـ on-call allowance عن كل أسبوع؟
+    language: mixed
+    reference_answer: >-
+      400 ريال عن كل أسبوع مناوبة، إضافة إلى ساعات إضافية عن أي incident يتجاوز ساعة واحدة
+      خارج الدوام.
+    source_doc_ids: [internal-policy-remote-work]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: en-expenses-customer-meal
+    question: If I take a customer out to eat, how much will the company pay back per head?
+    language: en
+    reference_answer: Up to SAR 250 per person, with the names of the attendees on the claim.
+    source_doc_ids: [internal-policy-expenses]
+    tags: [paraphrase]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: en-expenses-form-exp-7
+    question: What is form EXP-7 for, and how long do I have to submit it?
+    language: en
+    reference_answer: >-
+      It is the expense claim form in the finance portal. It must be submitted within 30 days
+      of the expense; claims older than 90 days are rejected without review.
+    source_doc_ids: [internal-policy-expenses]
+    tags: [exact-id]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: mixed-remote-cafe-wifi
+    question: مسموح أشتغل من Wi-Fi الكافيه؟
+    language: mixed
+    reference_answer: نعم، شبكات الـ Wi-Fi العامة مسموحة بشرط تشغيل الـ VPN قبل فتح أي نظام.
+    source_doc_ids: [internal-policy-remote-work]
+    tags: [paraphrase]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-maternity-leave
+    # The leave policy covers the father's leave only.
+    question: ما مدة إجازة الأمومة في الشركة؟
+    language: ar
+    expected: abstain
+    tags: [unanswerable]
+    caller: {user: u-furat, groups: [employees]}
+
+  # Finance: invoices.
+
+  - id: en-invoice-2047-balance
+    # INV-2048 is the near-identical hard negative.
+    question: What is the remaining balance on INV-2047?
+    language: en
+    reference_answer: SAR 8,676, after a payment of SAR 10,000 on 2 October 2026 against SAR 18,676.
+    source_doc_ids: [internal-invoice-inv-2047]
+    tags: [exact-id]
+    caller: {groups: [employees, finance]}
+
+  - id: ar-invoice-2048-status
+    question: ما حالة الفاتورة INV-2048 وكم المبلغ المستحق عليها؟
+    language: ar
+    reference_answer: غير مدفوعة، والمبلغ المستحق 28,520 ريال، وتستحق في 16 نوفمبر 2026.
+    source_doc_ids: [internal-invoice-inv-2048]
+    tags: [exact-id]
+    caller: {groups: [employees, finance]}
+
+  - id: en-invoices-scanner-prices
+    question: >-
+      What unit price did each customer pay for the BS-20 scanner on INV-2047 and INV-2048?
+    language: en
+    reference_answer: >-
+      Al Nakheel Retail paid SAR 420 per unit on INV-2047 (12 units); Al Waha Pharmacies paid
+      SAR 400 per unit on INV-2048 (30 units).
+    source_doc_ids: [internal-invoice-inv-2047, internal-invoice-inv-2048]
+    tags: [exact-id, multi-hop]
+    caller: {groups: [employees, finance]}
+
+  - id: en-invoices-unpaid-total
+    question: What is the combined outstanding balance on INV-2047 and INV-2048?
+    language: en
+    reference_answer: SAR 37,196 (SAR 8,676 on INV-2047 plus SAR 28,520 on INV-2048).
+    source_doc_ids: [internal-invoice-inv-2047, internal-invoice-inv-2048]
+    tags: [exact-id, multi-hop]
+    caller: {groups: [employees, finance]}
+
+  - id: mixed-invoice-2047-warranty
+    question: كم مدة الـ warranty على الـ printers في فاتورة INV-2047؟
+    language: mixed
+    reference_answer: سنة واحدة من تاريخ التركيب، وتشمل الطابعات والماسحات.
+    source_doc_ids: [internal-invoice-inv-2047]
+    tags: [exact-id]
+    caller: {groups: [employees, finance]}
+
+  - id: en-invoice-2049-missing
+    # No such invoice. INV-2047 and INV-2048 must not be used to answer.
+    question: What is the remaining balance on INV-2049?
+    language: en
+    expected: abstain
+    tags: [unanswerable, exact-id]
+    caller: {groups: [employees, finance]}
+
+  # Customers asking about their own orders.
+
+  - id: en-fatima-order-delivered
+    question: When was my order ORDER-123456 delivered?
+    language: en
+    reference_answer: On 9 November 2026, after a failed delivery attempt on 7 November.
+    source_doc_ids: [internal-order-123456]
+    tags: [personal, exact-id]
+    caller: {user: u-fatima}
+
+  - id: ar-fatima-return-deadline
+    question: حتى متى يمكنني إرجاع طلبي ORDER-123456؟
+    language: ar
+    reference_answer: حتى 23 نوفمبر 2026، أي 14 يومًا بعد التسليم، بشرط ألا يكون الصندوق مفتوحًا.
+    source_doc_ids: [internal-order-123456]
+    tags: [personal, exact-id]
+    caller: {user: u-fatima}
+
+  - id: mixed-fatima-scanner-bluetooth
+    question: الـ scanner اللي طلبته يشتغل مع tablet بالـ Bluetooth؟
+    language: mixed
+    reference_answer: نعم، الماسح BS-20 يتصل عبر Bluetooth 5.0، ويأتي أيضًا مع USB receiver.
+    source_doc_ids: [internal-order-123456]
+    tags: [personal, paraphrase]
+    caller: {user: u-fatima}
+
+  - id: ar-omar-refund-amount
+    # Morphology. Source: "استرداد". Question: "يُرَدّ".
+    question: كم المبلغ الذي سيُرَدّ لي عن الطابعة التي أرجعتها، ومتى؟
+    language: ar
+    reference_answer: 1,368.50 ريال (سعر الطابعة مع الضريبة)، إلى حسابي البنكي خلال سبعة أيام عمل.
+    source_doc_ids: [internal-order-123465]
+    tags: [personal, morphology]
+    caller: {user: u-omar}
+
+  # Tickets.
+
+  - id: mixed-furat-crm-from-home
+    question: ليش الـ CRM ما كان يفتح عندي من البيت؟
+    language: mixed
+    reference_answer: >-
+      لأن ساعة الـ laptop كانت متأخرة ثلاثة أيام بعد تغيير البطارية، فاعتبر المتصفح شهادة
+      الموقع غير صالحة (NET::ERR_CERT_DATE_INVALID). الحل كان تفعيل مزامنة الوقت التلقائية.
+    source_doc_ids: [internal-ticket-tkt-5521]
+    tags: [personal, paraphrase]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: en-ticket-5521-root-cause
+    question: What was the root cause in TKT-5521, and when should a case like it be escalated?
+    language: en
+    reference_answer: >-
+      The laptop clock was three days behind after a battery change, so the browser treated
+      the site certificate as not yet valid. If several users see ERR_CERT_DATE_INVALID at
+      once, the cause is likely an expired server certificate: raise it to P1 and tell the
+      infrastructure team.
+    source_doc_ids: [internal-ticket-tkt-5521]
+    tags: [exact-id]
+    caller: {groups: [employees, it-support]}
+
+  # Leakage: the answer exists, but not in anything the caller may read.
+
+  - id: en-fatima-asks-omars-order
+    question: What is the status of order ORDER-123465?
+    language: en
+    expected: abstain
+    forbidden_doc_ids: [internal-order-123465]
+    tags: [leakage, exact-id]
+    caller: {user: u-fatima}
+
+  - id: en-employee-asks-salary-band
+    question: What is the salary range for band B3?
+    language: en
+    expected: abstain
+    forbidden_doc_ids: [internal-hr-salary-bands]
+    tags: [leakage]
+    caller: {user: u-furat, groups: [employees]}
+
+  - id: ar-omar-asks-invoice
+    question: كم المبلغ المتبقي على الفاتورة INV-2047؟
+    language: ar
+    expected: abstain
+    forbidden_doc_ids: [internal-invoice-inv-2047]
+    tags: [leakage, exact-id]
+    caller: {user: u-omar}
+
+  - id: ar-anonymous-asks-remote-policy
+    question: كم يومًا في الأسبوع يُسمح للموظفين بالعمل عن بُعد؟
+    language: ar
+    expected: abstain
+    forbidden_doc_ids: [internal-policy-remote-work]
+    tags: [leakage]

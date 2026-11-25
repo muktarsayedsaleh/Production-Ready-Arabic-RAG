@@ -1,0 +1,198 @@
+# Golden cases over the public Wikipedia documents. Format: evals/dataset.py.
+# Every case here is asked by an anonymous caller (no user, no groups).
+
+cases:
+  # Plain lookups, same language and cross-language.
+
+  - id: ar-riyadh-metro-length
+    question: كم يبلغ طول شبكة مترو الرياض وكم خطًا فيها؟
+    language: ar
+    reference_answer: يبلغ طول الشبكة 176 كيلومترًا، وتتكون من ستة خطوط.
+    source_doc_ids: [wiki-ar-riyadh-metro, wiki-en-riyadh-metro]
+
+  - id: en-khwarizmi-algorithm-word
+    question: Where does the word "algorithm" come from?
+    language: en
+    reference_answer: >-
+      From Algoritmi, the Latinized form of the name of the mathematician al-Khwarizmi.
+    source_doc_ids: [wiki-en-al-khwarizmi, wiki-ar-al-khwarizmi]
+
+  - id: en-avicenna-birthplace
+    question: In which village was Avicenna born?
+    language: en
+    reference_answer: In the village of Afshana, near Bukhara (in present-day Uzbekistan).
+    source_doc_ids: [wiki-ar-avicenna]
+
+  - id: ar-arabic-alphabet-letters
+    question: كم عدد حروف الأبجدية العربية الأساسية؟
+    language: ar
+    reference_answer: 28 حرفًا.
+    source_doc_ids: [wiki-en-arabic-alphabet]
+
+  - id: en-arabizi-number-three
+    question: In Arabizi, which Arabic letter is written with the digit 3?
+    language: en
+    reference_answer: The letter ʿayn (ع), because the digit looks like a mirrored ع.
+    source_doc_ids: [wiki-en-arabizi]
+
+  - id: mixed-python-first-release
+    question: متى أُعلن أول release للغة Python؟
+    language: mixed
+    reference_answer: سنة 1991.
+    source_doc_ids: [wiki-ar-python]
+
+  - id: mixed-arabizi-why
+    question: شو هي الـ Arabizi وليش الناس بدأت تكتب فيها؟
+    language: mixed
+    reference_answer: >-
+      كتابة العربية بحروف لاتينية وأرقام بدل بعض الحروف، وانتشرت لأن تقنيات التواصل مثل
+      الرسائل النصية والإنترنت كانت في البداية تدعم الحروف اللاتينية فقط.
+    source_doc_ids: [wiki-en-arabizi]
+
+  # Paraphrase: little word overlap with the source.
+
+  - id: en-riyadh-metro-first-passengers
+    question: When did trains in Riyadh's metro start carrying the public?
+    language: en
+    reference_answer: >-
+      On 1 December 2024, with Lines 1, 4 and 6, after King Salman inaugurated it on
+      27 November 2024.
+    source_doc_ids: [wiki-en-riyadh-metro, wiki-ar-riyadh-metro]
+    tags: [paraphrase]
+
+  - id: en-house-of-wisdom-end
+    question: What event ended the great Abbasid library of Baghdad, and when?
+    language: en
+    reference_answer: The Mongol siege of Baghdad destroyed the House of Wisdom in 1258.
+    source_doc_ids: [wiki-en-house-of-wisdom]
+    tags: [paraphrase]
+
+  - id: ar-vision-2030-announced
+    question: ما الخطة السعودية لتنويع الاقتصاد بعيدًا عن البترول، ومتى كُشف عنها؟
+    language: ar
+    reference_answer: رؤية السعودية 2030، وأُعلن عنها في 25 أبريل 2016.
+    source_doc_ids: [wiki-ar-vision-2030]
+    tags: [paraphrase]
+
+  - id: en-diacritic-doubled-consonant
+    question: Which Arabic mark tells the reader that a consonant is pronounced twice?
+    language: en
+    reference_answer: The shadda (shaddah), which marks gemination, written above the consonant.
+    source_doc_ids: [wiki-en-arabic-diacritics]
+    tags: [paraphrase]
+
+  - id: en-semitic-root-writing
+    question: Which three-consonant root carries the general meaning of writing in Arabic?
+    language: en
+    reference_answer: The root k-t-b (ك-ت-ب).
+    source_doc_ids: [wiki-en-semitic-root]
+    tags: [paraphrase]
+
+  # Morphology: a different derivation of the same Arabic root than the source uses.
+
+  - id: ar-avicenna-works-count
+    # Source: "ألّف 200 كتابا". Question: "مؤلفات".
+    question: كم عدد مؤلفات ابن سينا؟
+    language: ar
+    reference_answer: نحو 200 كتاب، أكثرها في الفلسفة والطب.
+    source_doc_ids: [wiki-ar-avicenna]
+    tags: [morphology]
+
+  - id: ar-petra-world-heritage
+    # Source: "أُدرجت". Question: "إدراج".
+    question: في أي عام تم إدراج البتراء في قائمة التراث العالمي؟
+    language: ar
+    reference_answer: عام 1985.
+    source_doc_ids: [wiki-ar-petra]
+    tags: [morphology]
+
+  - id: ar-coffee-roasting-tool
+    # Source: "تُحمّص ... المحماسة". Question: "تحميص".
+    question: ما اسم الأداة المستخدمة في تحميص حبوب القهوة العربية؟
+    language: ar
+    reference_answer: المحماسة، وهي إناء معدني مقعر له يد حديدية طويلة.
+    source_doc_ids: [wiki-ar-arabic-coffee]
+    tags: [morphology]
+
+  - id: ar-python-developer
+    # Source: "طوَّرها". Question: "مطوِّر".
+    question: من مطوِّر لغة بايثون، وفي أي معهد؟
+    language: ar
+    reference_answer: جيدو فان روسم، في معهد الرياضيات والمعلوماتية الهولندي (CWI) في أمستردام.
+    source_doc_ids: [wiki-ar-python]
+    tags: [morphology]
+
+  - id: ar-derivation-kinds
+    # Source: "أربعة أقسام". Question: "تنقسم".
+    question: إلى كم نوعًا ينقسم الاشتقاق في العربية؟
+    language: ar
+    reference_answer: أربعة أقسام، الصغير والكبير والأكبر والكُبَّار.
+    source_doc_ids: [wiki-ar-derivation]
+    tags: [morphology]
+
+  - id: ar-date-palm-pollination
+    # Source: "تلقيح". Question: "يُلقِّح".
+    question: كم نخلة أنثى يستطيع فحل واحد أن يُلقِّحها؟
+    language: ar
+    reference_answer: ما يصل إلى 100 نخلة أنثى.
+    source_doc_ids: [wiki-ar-date-palm]
+    tags: [morphology]
+
+  # Stale document: the 2024-11 revision of the article is also indexed.
+
+  - id: ar-world-cup-2034-host-confirmed
+    # The old revision only has Infantino's announcement of 31 October 2023.
+    question: متى فازت السعودية رسميًا باستضافة كأس العالم 2034؟
+    language: ar
+    reference_answer: >-
+      في 11 ديسمبر 2024، حين أعلن الفيفا فوزها خلال اجتماع الجمعية العمومية الاستثنائية.
+    source_doc_ids: [wiki-ar-world-cup-2034, wiki-en-2034-world-cup]
+    tags: [stale-doc]
+
+  - id: ar-world-cup-2034-groups
+    # The old revision says 16 groups, with only the top two of each qualifying.
+    question: كم مجموعة ستضم بطولة كأس العالم 2034، ومن يتأهل منها إلى خروج المغلوب؟
+    language: ar
+    reference_answer: >-
+      اثنتا عشرة مجموعة، يتأهل منها بطل كل مجموعة ووصيفه وأفضل المنتخبات صاحبة المركز الثالث.
+    source_doc_ids: [wiki-ar-world-cup-2034]
+    tags: [stale-doc]
+
+  - id: ar-world-cup-2034-bid-score
+    # Not tagged stale-doc: the old revision doesn't contradict this, it just lacks it.
+    question: ما التقييم الفني الذي حصل عليه ملف السعودية لاستضافة كأس العالم 2034؟
+    language: ar
+    reference_answer: 419.8 من 500، وهو أعلى تقييم فني منحه الفيفا لملف استضافة.
+    source_doc_ids: [wiki-ar-world-cup-2034]
+
+  # Multi-hop: the answer needs two documents.
+
+  - id: en-khwarizmi-workplace-destroyed
+    question: The institution where al-Khwarizmi worked in Baghdad was destroyed in which year?
+    language: en
+    reference_answer: >-
+      He worked at the House of Wisdom, which was destroyed in 1258 during the Mongol siege
+      of Baghdad.
+    source_doc_ids: [wiki-en-al-khwarizmi, wiki-en-house-of-wisdom]
+    tags: [multi-hop]
+
+  - id: ar-riyadh-stadiums-and-metro-stations
+    question: كم ملعبًا ستضم الرياض في كأس العالم 2034، وكم محطة في مترو الرياض؟
+    language: ar
+    reference_answer: ثمانية ملاعب في الرياض، ويضم المترو 85 محطة.
+    source_doc_ids: [wiki-ar-world-cup-2034, wiki-ar-riyadh-metro]
+    tags: [multi-hop]
+
+  # Unanswerable: not in the corpus.
+
+  - id: en-world-cup-2034-winner
+    question: Who won the final of the 2034 FIFA World Cup?
+    language: en
+    expected: abstain
+    tags: [unanswerable]
+
+  - id: ar-jeddah-metro-stations
+    question: كم عدد محطات مترو جدة؟
+    language: ar
+    expected: abstain
+    tags: [unanswerable]

@@ -2,6 +2,9 @@
 #
 # Wikipedia documents are pinned to a revision; `uv run python -m evals.wikipedia` fetches
 # them again from these permalinks. version_date is the revision date (UTC).
+#
+# Internal documents are fictional and written for this repo (CC0, see internal/LICENSE).
+# Their ACLs drive the personal and leakage cases; a document without an ACL is public.
 
 documents:
   - id: wiki-ar-derivation
@@ -229,3 +232,106 @@ documents:
     revision: "1386293111"
     license: CC-BY-SA-4.0
     version_date: 2026-11-17
+
+  - id: internal-policy-leave
+    title: سياسة الإجازات
+    language: ar
+    path: internal/policy-leave.md
+    license: CC0-1.0
+    version_date: 2026-01-01
+    acl:
+      groups: [employees]
+
+  - id: internal-policy-expenses
+    title: Expense reimbursement policy
+    language: en
+    path: internal/policy-expenses.md
+    license: CC0-1.0
+    version_date: 2026-02-15
+    acl:
+      groups: [employees]
+
+  - id: internal-policy-remote-work
+    title: سياسة العمل عن بُعد (Remote work policy)
+    language: mixed
+    path: internal/policy-remote-work.md
+    license: CC0-1.0
+    version_date: 2026-03-10
+    acl:
+      groups: [employees]
+
+  - id: internal-policy-travel-2025
+    title: سياسة السفر في مهمات العمل
+    language: ar
+    path: internal/policy-travel-2025.md
+    license: CC0-1.0
+    version_date: 2025-01-01
+    acl:
+      groups: [employees]
+    superseded_by: internal-policy-travel-2026
+
+  - id: internal-policy-travel-2026
+    title: سياسة السفر في مهمات العمل
+    language: ar
+    path: internal/policy-travel-2026.md
+    license: CC0-1.0
+    version_date: 2026-07-01
+    acl:
+      groups: [employees]
+
+  - id: internal-invoice-inv-2047
+    title: فاتورة ضريبية INV-2047
+    language: mixed
+    path: internal/invoice-inv-2047.md
+    license: CC0-1.0
+    version_date: 2026-09-14
+    acl:
+      groups: [finance]
+
+  - id: internal-invoice-inv-2048
+    title: فاتورة ضريبية INV-2048
+    language: mixed
+    path: internal/invoice-inv-2048.md
+    license: CC0-1.0
+    version_date: 2026-09-16
+    acl:
+      groups: [finance]
+
+  - id: internal-order-123456
+    title: Order ORDER-123456
+    language: en
+    path: internal/order-123456.md
+    license: CC0-1.0
+    version_date: 2026-11-10
+    acl:
+      users: [u-fatima]
+      groups: [support]
+
+  - id: internal-order-123465
+    title: الطلب ORDER-123465
+    language: ar
+    path: internal/order-123465.md
+    license: CC0-1.0
+    version_date: 2026-11-15
+    acl:
+      users: [u-omar]
+      groups: [support]
+
+  - id: internal-ticket-tkt-5521
+    title: تذكرة دعم TKT-5521
+    language: mixed
+    path: internal/ticket-tkt-5521.md
+    license: CC0-1.0
+    version_date: 2026-11-18
+    acl:
+      users: [u-furat]
+      groups: [it-support]
+
+  - id: internal-hr-salary-bands
+    title: Salary bands 2026
+    language: en
+    path: internal/hr-salary-bands.md
+    license: CC0-1.0
+    version_date: 2026-01-01
+    acl:
+      groups: [hr]

@@ -278,7 +278,7 @@ def test_valid_leakage_case(tmp_path: Path) -> None:
         source_doc_ids=[],
         forbidden_doc_ids=["internal-inv-2047"],
         tags=["leakage", "exact-id"],
-        caller={"user": "sara", "groups": ["support"]},
+        caller={"user": "fatima", "groups": ["support"]},
     )
 
     dataset = load_dataset(*write_dataset(tmp_path, [PUBLIC_DOC, FINANCE_DOC], [leakage]))
@@ -350,12 +350,12 @@ def test_stale_doc_case_needs_a_superseding_source(tmp_path: Path) -> None:
     [
         (Caller(), None, True),
         (Caller(), Acl(groups=frozenset({"finance"})), False),
-        (Caller(user="sara"), Acl(users=frozenset({"sara"})), True),
-        (Caller(user="omar"), Acl(users=frozenset({"sara"})), False),
+        (Caller(user="fatima"), Acl(users=frozenset({"fatima"})), True),
+        (Caller(user="omar"), Acl(users=frozenset({"fatima"})), False),
         (Caller(groups=frozenset({"finance", "hr"})), Acl(groups=frozenset({"finance"})), True),
         (Caller(groups=frozenset({"support"})), Acl(groups=frozenset({"finance"})), False),
         # An empty ACL means nobody, not everybody.
-        (Caller(user="sara", groups=frozenset({"finance"})), Acl(), False),
+        (Caller(user="fatima", groups=frozenset({"finance"})), Acl(), False),
     ],
 )
 def test_may_read(caller: Caller, acl: Acl | None, allowed: bool) -> None:
